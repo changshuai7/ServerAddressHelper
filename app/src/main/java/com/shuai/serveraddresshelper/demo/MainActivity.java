@@ -15,6 +15,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /**
+         * 弹框选择服务器模式
+         */
         findViewById(R.id.btn_show_dialog).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * 获取服务器地址
+         */
         findViewById(R.id.btn_get_server_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

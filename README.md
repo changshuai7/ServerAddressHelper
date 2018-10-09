@@ -66,6 +66,8 @@ AddressBean[] value：非生产环境下地址的集合
 	
 
 <img src="https://github.com/changshuai7/ServerAddressHelper/blob/master/screenshots/Screenshot_1.jpg"  height="640" width="350">
+
+服务器地址带有记忆功能，第二次进入会默认选中上次的地址
 ## 3.使用服务器地址 ##
 
 	 //获取服务器的完整地址
