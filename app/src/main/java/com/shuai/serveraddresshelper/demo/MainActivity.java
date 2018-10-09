@@ -35,8 +35,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btn_get_server_address).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = ServerHelper.getAutoCompleteServerAddress("KEY_1", "/rrc/sale/demo");
-                Toast.makeText(MainActivity.this, url, Toast.LENGTH_SHORT).show();
+                String url1 = ServerHelper.getAutoCompleteServerAddress("KEY_1", "/rrc/sale/demo");
+                String url2 = ServerHelper.getAutoCompleteServerAddress("KEY_2", "/rrc/sale/demo");
+                String url3 = ServerHelper.getAutoCompleteServerAddress("KEY_3", "/rrc/sale/demo");
+
+
+                Toast.makeText(MainActivity.this, url1+"\n"+url2+"\n"+url3, Toast.LENGTH_LONG).show();
 
 
             }
