@@ -25,12 +25,12 @@
 
     ServerHelper.init(this, BuildConfig.DEBUG)//传入debug的boolean值
 		.addServerAddress("KEY_1",
-				new AddressBean[]{
+			new AddressBean[]{
 				new AddressBean("ADDRESS_KEY_0", "http://release.key1.address0.com", "", "Release第1个"),//第一个添加的一定是线上地址
 				new AddressBean("ADDRESS_KEY_1", "http://debug.key1.address1.com", "1111", "Debug第1个")
 			})
 		.addServerAddress("KEY_2",
-				new AddressBean[]{
+			new AddressBean[]{
 				new AddressBean("ADDRESS_KEY_0", "http://release.key2.address0.com", null, "Release第1个"),
 				new AddressBean("ADDRESS_KEY_1", "http://debug.key2.address1.com", "3333", "Debug第1个"),
 				new AddressBean("ADDRESS_KEY_2", "http://debug.key2.address2.com", "4444", "Debug第2个"),
