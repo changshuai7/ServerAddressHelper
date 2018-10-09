@@ -64,7 +64,7 @@ AddressBean[] value：非生产环境下地址的集合
 	    }
 	});
 	
-![](https://github.com/jeasonlzy/Screenshots/blob/master/okgo/demo13.gif)   
+![](https://github.com/changshuai7/screenshots/blob/Screenshot_1.jpg)
 ## 3.使用服务器地址 ##
 
 	 //获取服务器的完整地址
