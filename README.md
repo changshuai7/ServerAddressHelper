@@ -64,7 +64,7 @@ AddressBean[] value：非生产环境下地址的集合
 	    }
 	});
 	
-![](https://github.com/changshuai7/ServerAddressHelper/blob/master/screenshots/Screenshot_1.jpg)
+![image](https://github.com/changshuai7/ServerAddressHelper/blob/master/screenshots/Screenshot_1.jpg)
 ## 3.使用服务器地址 ##
 
 	 //获取服务器的完整地址
