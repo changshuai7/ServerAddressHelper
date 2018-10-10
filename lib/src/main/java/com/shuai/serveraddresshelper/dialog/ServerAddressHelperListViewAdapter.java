@@ -83,7 +83,13 @@ public class ServerAddressHelperListViewAdapter extends BaseAdapter {
                 holder.mSpinnerEnv.setAdapter(spinnerAdapter);
 
                 int anInt = PrefUtil.getInt(mContext, key, 0);
-                holder.mSpinnerEnv.setSelection(anInt);//选择上次选中的
+                if (anInt < value.length){
+                    holder.mSpinnerEnv.setSelection(anInt);//选择上次选中的
+                }else{
+                    //有一种可能，如果服务器地址设置为5个，默认选择的为第5个地址(已存储SP)。后续修改为4个。那么运行会角标越界。
+                    //针对这种情况，则需要重新去选择
+                    holder.mSpinnerEnv.setSelection(0);//防止数组角标越界。
+                }
 
                 holder.mSpinnerEnv.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
