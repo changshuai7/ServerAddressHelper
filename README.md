@@ -39,7 +39,7 @@
 				new AddressBean("ADDRESS_KEY_3", "http://debug.key2.address3.com", "5555", "第3个Debug地址")//添加Debug测试环境地址3
 			})
 		//以此类推可添加多个类型的服务器地址
-		 .build();
+		.build();
 
 
 
