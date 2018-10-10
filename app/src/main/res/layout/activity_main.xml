@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.shuai.serveraddresshelper.demo.MainActivity">
 
 
-    <Button
-        android:id="@+id/btn_show_dialog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="选择服务器环境Dialog" />
 
     <Button
         android:id="@+id/btn_get_server_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="获取服务器完整地址" />
+
+    <TextView
+        android:id="@+id/tv_show_server_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>

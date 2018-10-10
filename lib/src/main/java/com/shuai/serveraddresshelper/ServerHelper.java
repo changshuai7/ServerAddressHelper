@@ -63,12 +63,17 @@ public class ServerHelper {
     /**
      * 获取完整服务器地址
      *
-     * @param serverKey   服务器类型key
-     * @param addressKey  key类型下地址类型key
+     * @param serverKey   服务器类型标识key
+     * @param addressKey  key类型下地址类型标识key
      * @param serverField 服务器地址字段
      * @return
      */
     public synchronized static String getCompleteServerAddress(String serverKey, String addressKey, String serverField) {
+
+        if (Util.isStrNullOrEmpty(serverField)){
+            serverField = "";
+        }
+
         AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
 
         //如果是生产环境
@@ -95,7 +100,7 @@ public class ServerHelper {
     /**
      * 自动模式去获取服务器完整地址（通过dialog选择环境后，环境可实现自动识别）
      *
-     * @param serverKey   服务器类型key
+     * @param serverKey   服务器类型标识key
      * @param serverField 服务器地址字段
      * @return
      */
