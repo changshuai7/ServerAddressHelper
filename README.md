@@ -112,7 +112,7 @@ AddressBean[] value：服务器地址的数组合集。注意：**数组中，�
 	 比如： getCompleteServerAddress("KEY_1", "ADDRESS_KEY_2", "/rrc/sale/demo");
 
 # 注意： #
-1.在添加地址时候，AddressBean[]第一个地址：数组[0]一定是线上地址
+1.在添加地址时候，AddressBean[]第一个地址：数组[0]一定是线上地址。并且地址至少有两个。
 
 2.只有在Debug模式下才会弹出选择服务器环境，且只可选择Debug地址，线上地址不可选择，Release模式下直接是走线上地址.
 
