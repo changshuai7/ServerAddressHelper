@@ -107,7 +107,7 @@ AddressBean[] value：服务器地址的数组合集。注意：**数组中，�
      * @return
      */
      getCompleteServerAddress(String serverKey, String addressKey, String serverField);
-	 比如： getCompleteServerAddress(String "KEY_1", "ADDRESS_KEY_2", "/rrc/sale/demo");
+	 比如： getCompleteServerAddress("KEY_1", "ADDRESS_KEY_2", "/rrc/sale/demo");
 
 # 注意： #
 1.在添加地址时候，AddressBean[]第一个地址一定是线上地址
