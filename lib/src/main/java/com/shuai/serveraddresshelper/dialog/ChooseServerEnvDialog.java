@@ -31,7 +31,8 @@ public class ChooseServerEnvDialog {
     public static void showDialog(final Context context, final chooseResult chooseResult) {
 
         /*Release下不选择服务器环境*/
-        if (!ServerHelper.sIsDebug){
+        /*若全部都是2个地址不选择服务器环境*/
+        if (!ServerHelper.sIsDebug || ServerHelper.getChooseEnvMap().size() <= 0){
             chooseResult.onConfirm();
             return;
         }
