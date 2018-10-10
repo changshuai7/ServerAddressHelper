@@ -7,7 +7,6 @@ import com.shuai.serveraddresshelper.bean.AddressBean;
 import com.shuai.serveraddresshelper.utils.PrefUtil;
 import com.shuai.serveraddresshelper.utils.Util;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -42,7 +41,7 @@ public class ServerHelper {
 
     public static class Config {
 
-        private HashMap map = new HashMap<String, AddressBean[]>();//存储地址map
+        private LinkedHashMap map = new LinkedHashMap<String, AddressBean[]>();//存储地址map
 
         public Config() {
         }
@@ -105,6 +104,12 @@ public class ServerHelper {
      * @return
      */
     public synchronized static String getAutoCompleteServerAddress(String serverKey, String serverField) {
+
+        //这样做是为了保证Release下的高效率执行。
+        if (!sIsDebug){
+            return getCompleteServerAddress(serverKey, "", serverField);
+        }
+
         AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
         //考虑到对于只配置了两个地址的情况，debug模式下这里是取不到值的，返回0会造成去寻找release地址，产生bug，所以这里默认返回1（即第一个debug地址）
         int anInt = PrefUtil.getInt(sAppContext, serverKey, 1);
@@ -146,7 +151,7 @@ public class ServerHelper {
      * @return
      */
     public static LinkedHashMap<String, AddressBean[]> getChooseEnvMap() {
-        HashMap<String, AddressBean[]> map = sConfig.map;
+        LinkedHashMap<String, AddressBean[]> map = sConfig.map;
         LinkedHashMap<String, AddressBean[]> targetMap = new LinkedHashMap();//存储地址map
 
         Set<String> keys = map.keySet();
