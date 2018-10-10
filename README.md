@@ -38,8 +38,9 @@
 				new AddressBean("ADDRESS_KEY_2", "http://debug.key2.address2.com", "4444", "第2个Debug地址"),//添加Debug测试环境地址2
 				new AddressBean("ADDRESS_KEY_3", "http://debug.key2.address3.com", "5555", "第3个Debug地址")//添加Debug测试环境地址3
 			})
-	    //以此类推
-		...
+		//以此类推可添加多个类型的服务器地址
+		 .build();
+
 
 
 **API: addServerAddress(String key, AddressBean[] value)**
@@ -120,7 +121,15 @@ AddressBean[] value：服务器地址的数组合集。注意：**数组中，�
 # 效率问题 #
 关于时间复杂度：
 
-在Debug模式下，查找服务器是通过循环查找的，且需要读取SharePreference中的数据，时间复杂度较高：O(N^2)。在Release模式下，是直接读取LinkedHashMap中的数据，双向链表，查找的时间复杂度为O(1)。
+在Debug模式下:
+
+如果Debug地址有多个，查找服务器是通过循环查找的，且需要读取SharePreference中的数据，时间复杂度较高：O(N^2).
+如果Debug地址只有一个（大多数情况如此），只需要一次查找，时间复杂度为：O(1).
+
+
+在Release模式下:
+
+是直接读取LinkedHashMap中的数据，双向链表，查找的时间复杂度为O(1)。
 
 但由于实际中服务器地址一般不会太多，即使在Debug下效率也不会有太大影响。
 但可以敢肯定的是，Release一定可以保证高效。

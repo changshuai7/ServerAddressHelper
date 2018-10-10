@@ -32,7 +32,7 @@ public class ChooseServerEnvDialog {
 
         /*Release下不选择服务器环境*/
         /*若全部都是2个地址不选择服务器环境*/
-        if (!ServerHelper.sIsDebug || ServerHelper.getChooseEnvMap().size() <= 0){
+        if (!ServerHelper.sIsDebug || ServerHelper.sConfig.getEnvMap().size() <= 0){
             chooseResult.onConfirm();
             return;
         }
@@ -42,7 +42,7 @@ public class ChooseServerEnvDialog {
         View dialogView = inflater.inflate(R.layout.dialog_choose_server_env, null);
 
         /*数据和适配器*/
-        final LinkedHashMap<String, AddressBean[]> chooseEnvMap = ServerHelper.getChooseEnvMap();
+        final LinkedHashMap<String, AddressBean[]> chooseEnvMap = ServerHelper.sConfig.getEnvMap();
         final ListView listView = dialogView.findViewById(R.id.lv_choose_server);
         final ServerAddressHelperListViewAdapter adapter = new ServerAddressHelperListViewAdapter(context);
         adapter.setDatas(chooseEnvMap);

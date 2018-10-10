@@ -20,7 +20,7 @@ public class ServerHelper {
 
     private static Context sAppContext;
     public static boolean sIsDebug;
-    private static ServerHelper.Config sConfig;
+    public static ServerHelper.Config sConfig;
 
 
     /**
@@ -41,7 +41,15 @@ public class ServerHelper {
 
     public static class Config {
 
-        private LinkedHashMap map = new LinkedHashMap<String, AddressBean[]>();//存储地址map
+        private LinkedHashMap<String, AddressBean[]> map = new LinkedHashMap();//存储地址map
+        private LinkedHashMap<String, AddressBean[]> envMap = new LinkedHashMap();//存储存在多个debug地址的map
+
+        public LinkedHashMap<String, AddressBean[]> getEnvMap() {
+            return envMap;
+        }
+        public LinkedHashMap<String, AddressBean[]> getMap() {
+            return map;
+        }
 
         public Config() {
         }
@@ -57,10 +65,28 @@ public class ServerHelper {
             map.put(key, value);
             return this;
         }
+
+        public void build(){
+            initMap();
+        }
+
+        private  void initMap(){
+            Set<String> keys = map.keySet();
+            Iterator<String> iterator = keys.iterator();
+            while (iterator.hasNext()) {
+                String key = iterator.next();
+                AddressBean[] value = map.get(key);
+                if (value.length > 2) {
+                    envMap.put(key, value);
+                }
+            }
+        }
     }
 
+
+
     /**
-     * 获取完整服务器地址
+     * 获取完整服务器地址（Debug下低效）
      *
      * @param serverKey   服务器类型标识key
      * @param addressKey  key类型下地址类型标识key
@@ -68,20 +94,18 @@ public class ServerHelper {
      * @return
      */
     public synchronized static String getCompleteServerAddress(String serverKey, String addressKey, String serverField) {
-
         if (Util.isStrNullOrEmpty(serverField)){
             serverField = "";
         }
-
         AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
 
-        //如果是生产环境
+        //如果是Release环境:
         if (!sIsDebug) {
             String port = Util.isStrNullOrEmpty(beans[0].getAddressPort()) ? "" : ":" + beans[0].getAddressPort();
             return beans[0].getAddressHost() + port + serverField;
         }
 
-        //如果是非生产环境
+        //如果是Debug环境（循环，低效）
         if (beans.length > 0) {
             for (int i = 0; i < beans.length; i++) {
                 if (addressKey.equals(beans[i].getAddressKey())) {
@@ -104,18 +128,34 @@ public class ServerHelper {
      * @return
      */
     public synchronized static String getAutoCompleteServerAddress(String serverKey, String serverField) {
+        if (Util.isStrNullOrEmpty(serverField)){
+            serverField = "";
+        }
+        AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
 
-        //这样做是为了保证Release下的高效率执行。
+        //如果是Release环境:
         if (!sIsDebug){
-            return getCompleteServerAddress(serverKey, "", serverField);
+            String port = Util.isStrNullOrEmpty(beans[0].getAddressPort()) ? "" : ":" + beans[0].getAddressPort();
+            return beans[0].getAddressHost() + port + serverField;
         }
 
-        AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
-        //考虑到对于只配置了两个地址的情况，debug模式下这里是取不到值的，返回0会造成去寻找release地址，产生bug，所以这里默认返回1（即第一个debug地址）
-        int anInt = PrefUtil.getInt(sAppContext, serverKey, 1);
-        AddressBean bean = beans[anInt];
-        bean.getAddressKey();
-        return getCompleteServerAddress(serverKey, bean.getAddressKey(), serverField);
+        //如果是Debug环境
+        AddressBean bean;
+        if (sConfig.envMap.keySet().contains(serverKey)){//这是多个debug地址的情况下（这里因为读取了SP，效率会有所降低）
+            int anInt = PrefUtil.getInt(sAppContext, serverKey, 1);
+            if (anInt < beans.length){//防止数组角标越界
+                bean = beans[anInt];
+            }else{
+                bean = beans[1];
+            }
+
+        }else{//一个release一个debug的情况（高效）
+            bean = beans[1];
+        }
+
+        String port = Util.isStrNullOrEmpty(bean.getAddressPort()) ? "" : ":" + bean.getAddressPort();
+        return bean.getAddressHost() + port + serverField;
+
 
     }
 
@@ -150,21 +190,23 @@ public class ServerHelper {
      *
      * @return
      */
-    public static LinkedHashMap<String, AddressBean[]> getChooseEnvMap() {
-        LinkedHashMap<String, AddressBean[]> map = sConfig.map;
-        LinkedHashMap<String, AddressBean[]> targetMap = new LinkedHashMap();//存储地址map
+//    public static LinkedHashMap<String, AddressBean[]> getChooseEnvMap() {
+//        LinkedHashMap<String, AddressBean[]> map = sConfig.map;
+//        LinkedHashMap<String, AddressBean[]> targetMap = new LinkedHashMap();//存储地址map
+//
+//        Set<String> keys = map.keySet();
+//        Iterator<String> iterator = keys.iterator();
+//        while (iterator.hasNext()) {
+//            String key = iterator.next();
+//            AddressBean[] value = map.get(key);
+//            if (value.length > 2) {
+//                targetMap.put(key, value);
+//            }
+//        }
+//        return targetMap;
+//    }
 
-        Set<String> keys = map.keySet();
-        Iterator<String> iterator = keys.iterator();
-        while (iterator.hasNext()) {
-            String key = iterator.next();
-            AddressBean[] value = map.get(key);
-            if (value.length > 2) {
-                targetMap.put(key, value);
-            }
-        }
-        return targetMap;
-    }
+
 
 
 }
