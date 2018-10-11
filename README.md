@@ -38,7 +38,10 @@
 				new AddressBean("ADDRESS_KEY_2", "http://debug.key2.address2.com", "4444", "第2个Debug地址"),//添加Debug测试环境地址2
 				new AddressBean("ADDRESS_KEY_3", "http://debug.key2.address3.com", "5555", "第3个Debug地址")//添加Debug测试环境地址3
 			})
-		//以此类推可添加多个类型的服务器地址
+		//以此类推可添加多个类型的服务器地址....
+
+		//这是主题颜色（可选。如不设置，则采用白色主题）
+		.setThemeColor(getResources().getColor(R.color.colorChooseEnvDialog))
 		.build();
 
 
