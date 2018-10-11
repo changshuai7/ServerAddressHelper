@@ -36,6 +36,7 @@ public class App extends Application {
                                 new AddressBean("ADDRESS_KEY_3", "http://debug.key3.003.com", "9999", "第3个Debug地址"),
                                 new AddressBean("ADDRESS_KEY_4", "http://debug.key3.004.com", "19999", "第4个Debug地址")
                         })
+                .setThemeColor(getResources().getColor(R.color.colorChooseEnvDialog))
                 .build();
 
 

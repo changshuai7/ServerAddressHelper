@@ -62,8 +62,17 @@ public class ChooseServerEnvDialog {
         window.setAttributes(lp);//注意要在Dialog show之后，再将宽高属性设置进去，才有效果
         mDialog.setCancelable(false);
 
-        /*点击事件*/
+        /*点击按钮*/
         Button bt_confirm = dialogView.findViewById(R.id.btn_confirm);
+
+        if (ServerHelper.sConfig.getThemeColor() != 0){
+            bt_confirm.setBackgroundColor(ServerHelper.sConfig.getThemeColor());
+            bt_confirm.setTextColor(context.getResources().getColor(android.R.color.white));
+        }else{
+            bt_confirm.setBackgroundColor(context.getResources().getColor(android.R.color.darker_gray));
+            bt_confirm.setTextColor(context.getResources().getColor(android.R.color.white));
+        }
+
         bt_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

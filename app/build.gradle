@@ -25,4 +25,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     compile project(':lib')
+
+//    implementation 'com.github.changshuai7:ServerAddressHelper:1.0.0'
 }

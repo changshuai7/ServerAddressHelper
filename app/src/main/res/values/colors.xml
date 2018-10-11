@@ -3,4 +3,6 @@
     <color name="colorPrimary">#00A8E1</color>
     <color name="colorPrimaryDark">#00A8E1</color>
     <color name="colorAccent">#00A8E1</color>
+
+    <color name="colorChooseEnvDialog">#039705</color>
 </resources>

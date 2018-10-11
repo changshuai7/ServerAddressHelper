@@ -1,6 +1,7 @@
 package com.shuai.serveraddresshelper;
 
 import android.content.Context;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 
 import com.shuai.serveraddresshelper.bean.AddressBean;
@@ -51,6 +52,12 @@ public class ServerHelper {
             return map;
         }
 
+        private @ColorInt  int mThemeColor;//主题色
+
+        public int getThemeColor() {
+            return mThemeColor;
+        }
+
         public Config() {
         }
 
@@ -63,6 +70,11 @@ public class ServerHelper {
          */
         public Config addServerAddress(String key, AddressBean[] value) {
             map.put(key, value);
+            return this;
+        }
+
+        public Config setThemeColor(@ColorInt  int themeColor){
+            this.mThemeColor = themeColor;
             return this;
         }
 
