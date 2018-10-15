@@ -97,10 +97,10 @@ AddressBean[] value：服务器地址的数组合集。注意：**数组中，�
      * 自动模式去获取服务器完整地址（通过Dialog选择环境后，环境可实现自动识别）
      *
      * @param serverKey   服务器类型标识key
-     * @param serverField 服务器地址字段(必须以 / 开头)
+     * @param spliceField 服务器地址字段(必须以 / 开头)
      * @return
      */
-	 getAutoCompleteServerAddress(String serverKey, String serverField);
+	 getAutoCompleteServerAddress(String serverKey, String spliceField);
 	 比如：ServerHelper.getAutoCompleteServerAddress("KEY_1", "/rrc/sale/demo")；
 
     /**
@@ -108,11 +108,17 @@ AddressBean[] value：服务器地址的数组合集。注意：**数组中，�
      *
      * @param serverKey   服务器类型标识key
      * @param addressKey  key类型下地址类型key
-     * @param serverField 服务器地址字段(必须以 / 开头)
+     * @param spliceField 服务器地址字段(必须以 / 开头)
      * @return
      */
-     getCompleteServerAddress(String serverKey, String addressKey, String serverField);
+     getCompleteServerAddress(String serverKey, String addressKey, String spliceField);
 	 比如： getCompleteServerAddress("KEY_1", "ADDRESS_KEY_2", "/rrc/sale/demo");
+
+
+	 如果需要自定义端口号（不使用已经配置好的端口号），则可以在上述方法中传入端口的参数addressPort：
+	 addressPort在不为空或者null的情况下，优先采用addressPort，否则采用配置好的端口号
+	 getAutoCompleteServerAddress(String serverKey, String addressPort, String spliceField);
+	 getCompleteServerAddress(String serverKey, String addressKey, String addressPort, String spliceField);
 
 # 注意： #
 1.在添加地址时候，AddressBean[]第一个地址：数组[0]一定是线上地址。并且地址至少有两个（一个Release一个Debug）。
