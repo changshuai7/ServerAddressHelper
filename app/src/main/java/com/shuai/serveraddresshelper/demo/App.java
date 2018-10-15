@@ -25,7 +25,7 @@ public class App extends Application {
                         new AddressBean[]{
                                 new AddressBean("ADDRESS_KEY_0", "http://release0.key2.address0.com", "", "Release地址"),
                                 new AddressBean("ADDRESS_KEY_1", "http://debug.key2.001.com", "3333", "第1个Debug地址"),
-                                new AddressBean("ADDRESS_KEY_2", "http://debug.key2.002.com", "4444", "第2个Debug地址"),
+                                new AddressBean("ADDRESS_KEY_2", "http://debug.key2.002.com", "4444", "第2个Debug地址第2个Debug地址第2个Debug地址第2个Debug地址第2个Debug地址"),
                                 new AddressBean("ADDRESS_KEY_3", "http://debug.key2.003.com", "5555", "第3个Debug地址")
                         })
                 .addServerAddress("KEY_3",

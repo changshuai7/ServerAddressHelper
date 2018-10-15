@@ -54,9 +54,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_get_server_address:
                 String url1 = ServerHelper.getAutoCompleteServerAddress("KEY_1", "/rrc/sale/demo");
                 String url2 = ServerHelper.getAutoCompleteServerAddress("KEY_2", "/rrc/sale/demo");
-                String url3 = ServerHelper.getAutoCompleteServerAddress("KEY_3", null);
+                String url3 = ServerHelper.getAutoCompleteServerAddress("KEY_3", "9111",null);
 
-                mTvShowServerAddress.setText(url1 + "\n" + url2 + "\n" + url3);
+                String url3com = ServerHelper.getCompleteServerAddress("KEY_2","ADDRESS_KEY_2","12000","/rrc/sale/demo");
+
+                mTvShowServerAddress.setText(url1 + "\n" + url2 + "\n" + url3+ "\n\n" +"Complete："+ url3com);
 
                 break;
         }

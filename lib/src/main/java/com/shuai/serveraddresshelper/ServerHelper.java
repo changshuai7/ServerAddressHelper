@@ -102,19 +102,20 @@ public class ServerHelper {
      *
      * @param serverKey   服务器类型标识key
      * @param addressKey  key类型下地址类型标识key
-     * @param serverField 服务器地址字段
+     * @param addressPort 自定义的端口号(优先)
+     * @param spliceField 服务器地址字段
      * @return
      */
-    public synchronized static String getCompleteServerAddress(String serverKey, String addressKey, String serverField) {
-        if (Util.isStrNullOrEmpty(serverField)){
-            serverField = "";
+    public synchronized static String getCompleteServerAddress(String serverKey, String addressKey, String addressPort, String spliceField) {
+        if (Util.isStrNullOrEmpty(spliceField)){
+            spliceField = "";
         }
         AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
 
         //如果是Release环境:
         if (!sIsDebug) {
             String port = Util.isStrNullOrEmpty(beans[0].getAddressPort()) ? "" : ":" + beans[0].getAddressPort();
-            return beans[0].getAddressHost() + port + serverField;
+            return beans[0].getAddressHost() + port + spliceField;
         }
 
         //如果是Debug环境（循环，低效）
@@ -122,7 +123,10 @@ public class ServerHelper {
             for (int i = 0; i < beans.length; i++) {
                 if (addressKey.equals(beans[i].getAddressKey())) {
                     String port = Util.isStrNullOrEmpty(beans[i].getAddressPort()) ? "" : ":" + beans[i].getAddressPort();
-                    return beans[i].getAddressHost() + port + serverField;
+                    if (!Util.isStrNullOrEmpty(addressPort)){
+                        port = ":" + addressPort;
+                    }
+                    return beans[i].getAddressHost() + port + spliceField;
 
                 }
             }
@@ -132,23 +136,29 @@ public class ServerHelper {
     }
 
 
+    public synchronized static String getCompleteServerAddress(String serverKey, String addressKey, String spliceField){
+        return getCompleteServerAddress(serverKey,addressKey,null,spliceField);
+    }
+
+
     /**
      * 自动模式去获取服务器完整地址（通过dialog选择环境后，环境可实现自动识别）
      *
-     * @param serverKey   服务器类型标识key
-     * @param serverField 服务器地址字段
+     * @param serverKey   服务器类型标识key、
+     * @param addressPort 自定义的端口号(优先)
+     * @param spliceField 服务器地址字段
      * @return
      */
-    public synchronized static String getAutoCompleteServerAddress(String serverKey, String serverField) {
-        if (Util.isStrNullOrEmpty(serverField)){
-            serverField = "";
+    public synchronized static String getAutoCompleteServerAddress(String serverKey, String addressPort, String spliceField) {
+        if (Util.isStrNullOrEmpty(spliceField)){
+            spliceField = "";
         }
         AddressBean[] beans = (AddressBean[]) sConfig.map.get(serverKey);
 
         //如果是Release环境:
         if (!sIsDebug){
             String port = Util.isStrNullOrEmpty(beans[0].getAddressPort()) ? "" : ":" + beans[0].getAddressPort();
-            return beans[0].getAddressHost() + port + serverField;
+            return beans[0].getAddressHost() + port + spliceField;
         }
 
         //如果是Debug环境
@@ -166,9 +176,16 @@ public class ServerHelper {
         }
 
         String port = Util.isStrNullOrEmpty(bean.getAddressPort()) ? "" : ":" + bean.getAddressPort();
-        return bean.getAddressHost() + port + serverField;
+        if (!Util.isStrNullOrEmpty(addressPort)){
+            port = ":" + addressPort;
+        }
+        return bean.getAddressHost() + port + spliceField;
 
 
+    }
+
+    public synchronized static String getAutoCompleteServerAddress(String serverKey, String spliceField){
+        return getAutoCompleteServerAddress(serverKey,null,spliceField);
     }
 
 
